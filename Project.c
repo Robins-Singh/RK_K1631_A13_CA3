@@ -57,3 +57,68 @@ printf("\nProcess ID:\t");
 scanf("%d", &process[count].process_id);
 
 printf("Arrival Time:\t");
+
+
+
+
+
+scanf("%d", &process[count].arrival_time);
+
+printf("Burst Time:\t");
+
+scanf("%d", &process[count].burst_time);
+
+printf("Process Priority:\t");
+
+scanf("%d", &process[count].priority);
+
+temp_process = process[count].priority;
+
+process[count].q = Queue(temp_process);
+
+process[count].ready = 0;
+
+}
+
+time = process[0].burst_time;
+
+for(y = 0; y < limit; y++)
+
+{
+
+for(count = y; count < limit; count++)
+
+{
+
+if(process[count].arrival_time < time)
+
+{
+
+process[count].ready = 1;
+
+}
+
+}
+
+for(count = y; count < limit - 1; count++)
+
+{
+
+for(j = count + 1; j < limit; j++)
+
+{
+
+if(process[count].ready == 1 && process[j].ready == 1)
+
+{
+
+if(process[count].q == 2 && process[j].q == 1)
+
+{
+
+temp = process[count];
+
+process[count] = process[j];
+
+process[j] = temp;
+
