@@ -122,3 +122,85 @@ process[count] = process[j];
 
 process[j] = temp;
 
+
+
+
+
+
+}
+
+}
+
+}
+
+}
+
+for(count = y; count < limit - 1; count++)
+
+{
+
+for(j = count + 1; j < limit; j++)
+
+{
+
+if(process[count].ready == 1 && process[j].ready == 1)
+
+{
+
+if(process[count].q == 1 && process[j].q == 1)
+
+{
+
+if(process[count].burst_time > process[j].burst_time)
+
+{
+
+temp = process[count];
+
+process[count] = process[j];
+
+process[j] = temp;
+
+}
+
+else
+
+{
+
+break;
+
+}
+
+}
+
+}
+
+}
+
+}
+
+printf("\nProcess[%d]:\tTime:\t%d To %d\n", process[y].process_id, time, time + process[y].burst_time);
+
+time = time + process[y].burst_time;
+
+for(count = y; count < limit; count++)
+
+{
+
+if(process[count].ready == 1)
+
+{
+
+process[count].ready = 0;
+
+}
+
+}
+
+}
+
+return 0;
+}
+
+
+
