@@ -489,3 +489,82 @@ void display_pqueue()
 }
 
 
+
+int main()
+{
+	int n;
+	printf("enter the number of process\n");
+	scanf("%d",&n);
+	int q[n],q1[n],q2[n],b[n],b1[n],b2[n],k,a=0,a1=0,a2=0,p[n],p1[n],p2[n],at[n],rt[n];
+	printf("\nEnter priority between:\n0 to 10 for high priority\n11 to 20 for medium priority\n21 to 30 for lowest priority for every process\n");
+	for(int i=0;i<n;i++)
+	{
+		printf("\nEnter priority of process %d:",(i+1));
+		scanf("%d",&k);
+		if(k>0&&k<=10){
+		p[a]=k;
+		printf("\nEnter burst time of process %d:",(i+1));
+		scanf("%d",&b[a]);rt[a]=b[a];
+		printf("\nEnter arival time of process %d:",(i+1));
+		scanf("%d",&at[a]);
+		q[a++]=(i+1);}
+		else if(k>10&&k<=20){
+		p1[a1]=k;
+		printf("\nEnter burst time of process %d:",(i+1));
+		scanf("%d",&b[a1]);
+		q1[a1++]=(i+1);}
+		else if(k>20&&k<=30){
+		p2[a2]=k;
+		printf("\nEnter burst time of process %d:",(i+1));
+		scanf("%d",&b[a2]);
+		q2[a2++]=(i+1);}
+	}
+	printf("\nHighest priority queue:");
+	printf("\nProcess ID\tArrival Time\tPriority\tBurst Time\n");
+	for(int i=0;i<a;i++)
+	{
+		printf("%d\t\t%d\t\t%d\t\t%d\n",q[i],at[i],p[i],b[i]);
+	}
+	//-------------------------ROUND-ROBIN-------------------------------------------------------
+	  int count,time,remain=a,flag=0,time_quantum=4; 
+   int wait_time=0,turnaround_time=0;
+	printf("\n\nProcess\t|Turnaround Time|Waiting Time\n\n"); 
+  for(time=0,count=0;remain!=0;) 
+  { 
+    if(rt[count]<=time_quantum && rt[count]>0) 
+    { 
+      time+=rt[count]; 
+      rt[count]=0; 
+      flag=1; 
+    } 
+    else if(rt[count]>0) 
+    { 
+      rt[count]-=time_quantum; 
+      time+=time_quantum; 
+    } 
+    if(rt[count]==0 && flag==1) 
+    { 
+      remain--; 
+      printf("P[%d]\t|\t%d\t|\t%d\n",count+1,time-at[count],time-at[count]-b[count]); 
+      wait_time+=time-at[count]-b[count]; 
+      turnaround_time+=time-at[count]; 
+      flag=0; 
+    } 
+    if(count==a-1) 
+      count=0; 
+    else if(at[count+1]<=time) 
+      count++; 
+    else 
+      count=0; 
+  } 
+  printf("\nAverage Waiting Time= %f\n",wait_time*1.0/a); 
+  printf("Avg Turnaround Time = %f",turnaround_time*1.0/a); 
+  //---------------------PRIORITY-----------------------------------------------------
+	printf("\nmedium priority queue:");
+	printf("\nProcess ID\tPriority\tBurst Time\n");
+	for(int i=0;i<a1;i++)
+	{
+		printf("%d\t\t%d\t\t%d\n",q1[i],p1[i],b1[i]);
+	}
+	
+
